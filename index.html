@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>CCN Lab</title>
+  <link rel="icon" type="image/png" href="./favicon.png">
+  <link rel="stylesheet" href="./style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      /* === Hamburger Menu === */
+      const toggleButton = document.querySelector(".menu-toggle");
+      const menu = document.querySelector("ul.menu");
+      if (toggleButton && menu) {
+        toggleButton.addEventListener("click", () => menu.classList.toggle("active"));
+        menu.addEventListener("click", e => {
+          if (e.target.tagName.toLowerCase() === "a") menu.classList.remove("active");
+        });
+      }
+
+      /* === Toggle Person Entries === */
+      document.body.addEventListener("click", function (e) {
+        const header = e.target.closest(".personToggle");
+        if (header) {
+          const entry = header.nextElementSibling;
+          if (entry && entry.classList.contains("personEntry")) {
+            const isVisible = entry.style.display === "block";
+            entry.style.display = isVisible ? "none" : "block";
+            entry.classList.toggle("highlight", !isVisible);
+          }
+        }
+      });
+    });
+  </script>
+</head>
+
+  
+<body>
+  <section>
+    <header>
+        <nav style="display: flex; align-items: center; text-align: center; justify-content: center;">
+           <div class="logo"><img src="./logo.png"/></div>
+           <p class="thin100c"> Computational Cognitive Neuroscience Lab </p>
+        </nav>
+      <nav>
+        <button class="menu-toggle">&#9776;</button> <!-- ☰ -->
+        <ul class="menu">
+          <li><a href="#about">ABOUT</a></li>
+          <li><a href="#people">PEOPLE</a></li>
+          <li><a href="#research">RESEARCH</a></li>
+          <li><a href="#positions">POSITIONS</a></li>
+          <li><a href="#contact">CONTACT</a></li>
+        </ul>
+      </nav>
+      
+      
+    </header>
+  </section>
+  <article>
+  <section id="about" x-data x-html="await (await fetch('about.html')).text()"></section>
+  <section id="people" x-data x-html="await (await fetch('people.html')).text()"></section>
+  <section id="research" x-data x-html="await (await fetch('research.html')).text()"></section>
+  <section id="positions" x-data x-html="await (await fetch('positions.html')).text()"></section>
+  <section id="contact" x-data x-html="await (await fetch('contact.html')).text()"></section>
+  </section>
+</article>
+</body>
+</html>
